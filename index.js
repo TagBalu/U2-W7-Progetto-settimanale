@@ -15,14 +15,31 @@ const getProdcuts = () => {
     })
     .then((products) => {
       console.log(products);
+      const col = document.getElementById("products-container");
 
-      const row = document.querySelector(".products-container");
-      products.array.forEach((products) => {
-        const col = document.createElement("div");
-        col.className = "col-md-4 col-lg-3 mb-4";
-        const card = document.createElement("div");
-        card.className = "card h-100 shadow-sm";
-        const imageUrl = document.createElement("img");
+      products.forEach((app) => {
+        const name = document.createElement("div");
+        name.classList.add("card-body d-flex flex-column justify-content-between");
+        name.innerText = app.name;
+        col.appendChild(name);
+        const description = document.createElement("h4");
+        description.classList.add("card-title");
+        description.innerText = app.description;
+        col.appendChild(description);
+        const brand = document.createElement("p");
+        brand.classList.add("card-text");
+        brand.innerText = app.brand;
+        col.appendChild(brand);
+        const image = document.createElement("img");
+        image.classList.add("card-img-top");
+        image.src = app.imageUrl;
+        image.alt = app.name;
+        image.style.width = "200px";
+        image.style.objectFit = "cover";
+        col.appendChild(image);
+        const price = document.createElement("p");
+        price.innerText = app.price;
+        col.appendChild(price);
       });
     })
     .catch((error) => console.log(error));
