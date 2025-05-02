@@ -13,9 +13,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Home</a>
+        <a class="navbar-brand d-flex align-items-center" href="#"> <i class="fas fa-store me-2"></i> Everything you need </a>
         <button
           class="navbar-toggler"
           type="button"
@@ -30,12 +30,18 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="./index.html">Saldi</a>
+              <a class="nav-link active" aria-current="page" href="./index.html"> <i class="fas fa-tags me-1"></i> Saldi </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="./backoffice.html">backoffice</a>
+              <a class="nav-link" href="./backoffice.html"> <i class="fas fa-cogs me-1"></i> Backoffice </a>
             </li>
           </ul>
+          <form class="d-flex ms-lg-3">
+            <input class="form-control me-2" type="search" placeholder="Cerca prodotti" aria-label="Search" />
+            <button class="btn btn-outline-light" type="submit">
+              <i class="fas fa-search"></i>
+            </button>
+          </form>
         </div>
       </div>
     </nav>
@@ -45,7 +51,6 @@
       <div id="main-container" class="container">
         <div class="row justify-content-center">
           <div class="col-md-6">
-            <h2 class="display-5 d-inline-block mt-5">Prodotto</h2>
             <div class="row" id="products-container"></div>
           </div>
         </div>

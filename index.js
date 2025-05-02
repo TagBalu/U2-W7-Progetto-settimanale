@@ -11,35 +11,51 @@ const getProdcuts = () => {
       console.log(resp);
       if (resp.ok) {
         return resp.json();
+      } else {
+        throw new Error("Failed to fetch products");
       }
     })
     .then((products) => {
-      console.log(products);
-      const col = document.getElementById("products-container");
+      const productsContainer = document.getElementById("products-container");
+      if (!productsContainer) {
+        console.error("Element with ID 'products-container' not found in the DOM.");
+        return;
+      }
+      productsContainer.innerHTML = "";
+      products.forEach((product) => {
+        const col = document.createElement("div");
+        col.className = "col-md-4 mb-4";
 
-      products.forEach((app) => {
-        const name = document.createElement("div");
-        name.classList.add("card-body d-flex flex-column justify-content-between");
-        name.innerText = app.name;
-        col.appendChild(name);
-        const description = document.createElement("h4");
-        description.classList.add("card-title");
-        description.innerText = app.description;
-        col.appendChild(description);
-        const brand = document.createElement("p");
-        brand.classList.add("card-text");
-        brand.innerText = app.brand;
-        col.appendChild(brand);
-        const image = document.createElement("img");
-        image.classList.add("card-img-top");
-        image.src = app.imageUrl;
-        image.alt = app.name;
-        image.style.width = "200px";
-        image.style.objectFit = "cover";
-        col.appendChild(image);
-        const price = document.createElement("p");
-        price.innerText = app.price;
-        col.appendChild(price);
+        const card = document.createElement("div");
+        card.className = "card";
+
+        const img = document.createElement("img");
+        img.src = product.imageUrl;
+        img.alt = product.name;
+        img.className = "card-img-top";
+
+        const cardBody = document.createElement("div");
+        cardBody.className = "card-body";
+
+        const cardTitle = document.createElement("h5");
+        cardTitle.className = "card-title";
+        cardTitle.innerText = product.name;
+
+        const cardDescription = document.createElement("p");
+        cardDescription.className = "card-text";
+        cardDescription.innerText = product.description;
+
+        const cardPrice = document.createElement("p");
+        cardPrice.className = "card-text";
+        cardPrice.innerHTML = `<strong>Price:</strong> €${product.price}`;
+
+        cardBody.appendChild(cardTitle);
+        cardBody.appendChild(cardDescription);
+        cardBody.appendChild(cardPrice);
+        card.appendChild(img);
+        card.appendChild(cardBody);
+        col.appendChild(card);
+        productsContainer.appendChild(col);
       });
     })
     .catch((error) => console.log(error));
