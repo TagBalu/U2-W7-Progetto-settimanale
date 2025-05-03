@@ -33,6 +33,8 @@ const getProdcuts = () => {
         img.src = product.imageUrl;
         img.alt = product.name;
         img.className = "card-img-top";
+        img.classList.add("img-fluid", "object-fit-contain", "w-100");
+        img.style.height = "200px";
 
         const cardBody = document.createElement("div");
         cardBody.className = "card-body";

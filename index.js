@@ -33,9 +33,11 @@ const getProdcuts = () => {
         img.src = product.imageUrl;
         img.alt = product.name;
         img.className = "card-img-top";
+        img.classList.add("img-fluid", "object-fit-contain", "w-100");
+        img.style.height = "200px";
 
         const cardBody = document.createElement("div");
-        cardBody.className = "card-body";
+        cardBody.className = "card-body d-flex flex-wrap";
 
         const cardTitle = document.createElement("h5");
         cardTitle.className = "card-title";
@@ -48,17 +50,58 @@ const getProdcuts = () => {
         const cardPrice = document.createElement("p");
         cardPrice.className = "card-text";
         cardPrice.innerHTML = `<strong>Price:</strong> €${product.price}`;
+        // Contenitore per i pulsanti
+        const buttonContainer = document.createElement("div");
+        buttonContainer.className = "d-flex justify-content-end";
+
+        const editButton = document.createElement("button");
+        editButton.className = "btn btn-warning me-2 ";
+        editButton.innerHTML = '<i class="fas fa-edit"></i> Modifica';
+        editButton.onclick = () => loadProductIntoForm(product);
+
+        const deleteButton = document.createElement("button");
+        deleteButton.className = "btn btn-danger";
+        deleteButton.innerHTML = '<i class="fas fa-trash-alt"></i> Elimina';
+        deleteButton.onclick = () => deleteProduct(product._id);
+
+        buttonContainer.appendChild(editButton);
+        buttonContainer.appendChild(deleteButton);
 
         cardBody.appendChild(cardTitle);
         cardBody.appendChild(cardDescription);
         cardBody.appendChild(cardPrice);
+        cardBody.appendChild(buttonContainer);
+
         card.appendChild(img);
         card.appendChild(cardBody);
+
         col.appendChild(card);
+
         productsContainer.appendChild(col);
       });
     })
     .catch((error) => console.log(error));
+};
+
+const deleteProduct = (productId) => {
+  if (confirm("Sei sicuro di voler eliminare questo prodotto?")) {
+    fetch(`${URL}${productId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODE0ODdiMzFjMjUwNDAwMTUxYWI2N2IiLCJpYXQiOjE3NDYxNzU5MjMsImV4cCI6MTc0NzM4NTUyM30.EWKIVxz1oR6-xD_SWztuF7cjLTMyO9VjvI8x4HyAzrc"
+      }
+    })
+      .then((response) => {
+        if (response.ok) {
+          alert("Prodotto eliminato con successo!");
+          fetchProducts();
+        } else {
+          throw new Error("Errore nell'eliminazione del prodotto");
+        }
+      })
+      .catch((error) => console.error("Errore:", error));
+  }
 };
 
 window.onload = function () {
