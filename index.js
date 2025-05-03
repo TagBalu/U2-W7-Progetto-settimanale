@@ -24,10 +24,10 @@ const getProdcuts = () => {
       productsContainer.innerHTML = "";
       products.forEach((product) => {
         const col = document.createElement("div");
-        col.className = "col-md-4 mb-4";
+        col.className = "col";
 
         const card = document.createElement("div");
-        card.className = "card";
+        card.className = "card h-100 shadow-sm border-0";
 
         const img = document.createElement("img");
         img.src = product.imageUrl;
